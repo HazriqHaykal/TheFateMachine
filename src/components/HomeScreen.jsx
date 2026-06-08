@@ -16,7 +16,7 @@ function GlitchTitle({ text }) {
 export default function HomeScreen({
   participants, question, questionIndex, totalQuestions,
   onStart, noMercyMode, setNoMercyMode,
-  isMuted, setIsMuted, allDone, onReset,
+  isMuted, setIsMuted, allDone, onReset, onRemoveParticipant,
 }) {
   return (
     <div className="min-h-screen flex flex-col">
@@ -211,13 +211,20 @@ export default function HomeScreen({
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.02 }}
-                    className="rounded px-2 py-1.5 font-body text-sm text-white/75"
+                    className="rounded px-2 py-1.5 font-body text-sm text-white/75 flex items-center justify-between group"
                     style={{
                       background: 'rgba(0,245,255,0.04)',
                       border: '1px solid rgba(0,245,255,0.10)',
                     }}
                   >
-                    {p.name}
+                    <span className="truncate">{p.name}</span>
+                    <button
+                      onClick={() => onRemoveParticipant(p.id)}
+                      className="ml-1 shrink-0 text-white/20 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 leading-none"
+                      title="Remove"
+                    >
+                      ×
+                    </button>
                   </motion.div>
                 ))}
               </div>

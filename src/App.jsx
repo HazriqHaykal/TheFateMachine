@@ -77,6 +77,10 @@ export default function App() {
   const [isMuted, setIsMuted] = useState(false)
   const [allDone, setAllDone] = useState(false)
 
+  const handleRemoveParticipant = useCallback((id) => {
+    setParticipants(prev => prev.filter(p => p.id !== id))
+  }, [])
+
   const currentQuestion = QUESTIONS[questionIndex]
 
   const handleWinner = useCallback((winnerName) => {
@@ -123,6 +127,7 @@ export default function App() {
               question={currentQuestion}
               questionIndex={questionIndex}
               totalQuestions={QUESTIONS.length}
+              onRemoveParticipant={handleRemoveParticipant}
               onStart={() => {
                 soundEngine.init()
                 soundEngine.resume()
